@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}-Inflated</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/images/apple-icon.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='assets/images/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='assets/images/favicon-16x16.png') }}" />
+    <link rel="manifest" href="{{ url_for('static', filename='assets/favicon_io/site.webmanifest') }}" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    
+    <!-- Bootstrap core css -->
+    <link href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    
+    <!-- Common css -->
+    <link href="{{ url_for('static', filename='assets/css/common.css') }}" rel="stylesheet" />
+    
+    <!-- Custom css -->
+    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/style-header.css') }}" rel="stylesheet" />    
+    <link href="{{ url_for('static', filename='assets/css/style-footer.css') }}" rel="stylesheet" />
+    
+    <!-- Responsive css -->
+    <link href="{{ url_for('static', filename='assets/css/responsive.css') }}" rel="stylesheet" />
+   
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css" rel="stylesheet" />
+    <style>
+        .single-chart {
+          width: 60%;
+        margin: 0px auto;
+    
+          justify-content: space-around ;
+        }
+        
+        .circular-chart {
+          display: block;
+          margin: 10px auto;
+          max-width: 80%;
+          max-height: 300px;
+        }
+        
+        .circle-bg {
+          fill: none;
+          stroke: #eee;
+          stroke-width: 3.8;
+        }
+        
+        .circle {
+          fill: none;
+          stroke-width: 2.8;
+          stroke-linecap: round;
+          animation: progress 1s ease-out forwards;
+        }
+        
+        @keyframes progress {
+          0% {
+            stroke-dasharray: 0 100;
+          }
+        }
+        
+        
+        .circular-chart.theme_color .circle {
+          stroke: #45db2a;
+        }
+        
+        .percentage {
+          fill: #666;
+          font-family: sans-serif;
+          font-size: 0.5em;
+          text-anchor: middle;
+        }
+            </style>
+</head>
+
+<body>
+    <!-- Start: Header -->
+    <header>
+        <!-- Start: Main Navigation -->
+        <nav class="
+          navbar navbar-expand-md
+          fixed-top
+          sign-in-navbar
+          dashboard-navbar
+        " id="header">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='admin/dist/img/logo.svg')}}"  class="brand-image img-circle elevation-3"
+                    style="opacity: .8"></a>
+                <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation" onclick="openNav()">
+                    <span class="close">x</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse flex-md-column" id="navbarCollapse1">
+                    <ul class="navbar-nav ml-auto">
+                        <p>{{ session['user']['name'] }}</p>
+                        <li class="nav-item">
+                            <a class="btn btn-primary" href="/logout">Sign Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- End: Main Navigation -->
+    </header>
+    <!--End: Header -->
+
+    <!--Start: Main -->
+    <main>
+        <!--Start Sign-In Section-->
+        <div class="">
+            <button class="openbtn" onclick="openNav()" style="display: none">
+                Show
+            </button>
+            <div class="collapse1 navbar-collapse" onclick="openNav()" id="navbarCollapse">
+                <div id="mySidebar" class="sidebar">
+                    <div class="bg-white">
+                        <a href="javascript:void(0)" class="closebtn text-right" onclick="closeNav()"
+                            style="display: none">Hide</a>
+                    </div>
+                    <a {% if sidebar =='dashboard' %} class="active" {% endif %} href="/dashboard">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.1216 2.48223C4.2588 2.48223 1.125 5.61423 1.125 9.47883C1.125 13.3434 4.257 16.4772 8.1216 16.4772C11.9862 16.4772 15.1182 13.3452 15.1182 9.47883H8.1216V2.48223ZM16.875 8.67783C16.875 6.74643 16.092 4.99683 14.8266 3.73143L9.8784 8.67783H16.875ZM9.0072 1.51923V8.51403L13.9536 3.56763C12.5874 2.20143 10.7964 1.51923 9.0072 1.51923Z" />
+                        </svg> 
+                        Dashboard
+                    </a>
+                    <a {% if sidebar =='link_account' %} class="active" {% endif %} href="/link-bank-account">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.492075 0H15.505H15.998V0.492075V10.2633C15.6557 10.2577 15.3126 10.3484 15.0129 10.5167V0.985075H0.985075V21.0149H15.0129V18.9893C15.3191 19.153 15.652 19.289 15.986 19.375L15.998 19.3972V21.507V22H15.505H0.492075H0V21.507V0.492075V0H0.492075ZM20.4923 16.8073L22 19.288L18.3168 21.297L16.9303 18.7358L20.4923 16.8073ZM13.9992 12.4203L12.1715 9.43637C11.7589 8.67328 10.5278 9.09968 11.0412 10.0487L12.7292 13.1676C12.7292 13.1676 14.1009 15.6197 14.0639 15.64C14.0278 15.6594 13.3535 15.7556 12.7865 15.8491C11.3751 16.0822 10.8867 17.1209 11.6294 17.7091C11.6294 17.7091 14.1804 16.9905 15.0462 17.6647C15.9129 18.34 16.7157 18.34 16.7157 18.34L20.0058 16.5594L17.3595 11.7608C17.2106 11.4916 16.8795 11.0291 16.3347 11.5277C15.9786 11.2262 15.3117 11.4879 15.2293 11.9522C14.8168 11.4232 13.8835 11.7589 13.9992 12.4203ZM2.79613 6.12411H10.2226V7.13509H2.79613V6.12411ZM2.79613 2.81371H5.84015V3.82468H2.79613V2.81371ZM2.79613 9.17553H10.2226V10.1865H2.79613V9.17553ZM2.79613 12.226H10.2226V13.237H2.79613V12.226ZM2.79613 15.2765H10.2226V16.2875H2.79613V15.2765ZM2.79613 18.3279H10.2226V19.338H2.79613V18.3279Z" />
+                        </svg>
+                        Link Bank Account
+                    </a>
+                    <a {% if sidebar =='profile' %} class="active" {% endif %} href="/profile">
+                        <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.2513 11.5741C16.2513 11.0961 16.0636 10.6608 15.7563 10.3279L18.1462 7.93802C18.462 8.20262 18.8717 8.36479 19.3156 8.36479C20.3398 8.36479 21.1678 7.53685 21.1678 6.5126C21.1678 5.48834 20.3398 4.6604 19.3156 4.6604C18.2913 4.6604 17.4634 5.48834 17.4634 6.5126C17.4634 6.95644 17.6255 7.35761 17.8901 7.68195L15.4831 10.089C15.1759 9.86703 14.8088 9.73046 14.3991 9.73046C13.9212 9.73046 13.4859 9.91824 13.153 10.2255L10.6948 7.76731C11.002 7.43442 11.1898 6.99912 11.1898 6.5126C11.1898 5.48834 10.3619 4.6604 9.33762 4.6604C8.31336 4.6604 7.48542 5.48834 7.48542 6.50406C7.48542 6.90523 7.62199 7.28079 7.84391 7.58806L5.28327 10.1487C4.96746 9.8841 4.55776 9.72193 4.11391 9.72193C3.08966 9.72193 2.26172 10.5499 2.26172 11.5741C2.26172 12.5984 3.08966 13.4263 4.11391 13.4263C5.13817 13.4263 5.96611 12.5984 5.96611 11.5741C5.96611 11.1303 5.80394 10.7291 5.53934 10.4048L8.0829 7.8612C8.41579 8.16848 8.8511 8.35626 9.32908 8.35626C9.73025 8.35626 10.1058 8.21969 10.4131 7.99777L12.8969 10.4816C12.675 10.7889 12.5384 11.1559 12.5384 11.5656C12.5384 12.5898 13.3664 13.4178 14.3906 13.4178C15.4149 13.4263 16.2513 12.5898 16.2513 11.5741ZM19.3156 5.57369C19.8277 5.57369 20.2459 5.99193 20.2459 6.50406C20.2459 7.01619 19.8277 7.43443 19.3156 7.43443C18.8034 7.43443 18.3852 7.01619 18.3852 6.50406C18.3852 5.99193 18.8034 5.57369 19.3156 5.57369ZM4.11391 12.5045C3.60179 12.5045 3.18355 12.0863 3.18355 11.5741C3.18355 11.062 3.60179 10.6438 4.11391 10.6438C4.62604 10.6438 5.04428 11.062 5.04428 11.5741C5.04428 12.0863 4.62604 12.5045 4.11391 12.5045ZM9.33762 7.43443C8.82549 7.43443 8.40725 7.01619 8.40725 6.50406C8.40725 5.99193 8.82549 5.57369 9.33762 5.57369C9.84974 5.57369 10.268 5.99193 10.268 6.50406C10.268 7.01619 9.84974 7.43443 9.33762 7.43443ZM13.4688 11.5741C13.4688 11.062 13.887 10.6438 14.3991 10.6438C14.9113 10.6438 15.3295 11.062 15.3295 11.5741C15.3295 12.0863 14.9113 12.5045 14.3991 12.5045C13.887 12.5045 13.4688 12.0863 13.4688 11.5741Z" />
+                            <path d="M0.460915 16.738C0.716979 16.738 0.92183 16.5332 0.92183 16.2771V0.460915C0.92183 0.204851 0.716979 0 0.460915 0C0.204851 0 0 0.204851 0 0.460915V16.2771C0 16.5332 0.204851 16.738 0.460915 16.738Z" />
+                            <path d="M2.87645 18.0781H0.460915C0.204851 18.0781 0 18.2829 0 18.539C0 18.7951 0.204851 18.9999 0.460915 18.9999H2.87645C3.13251 18.9999 3.33737 18.7951 3.33737 18.539C3.33737 18.2829 3.13251 18.0781 2.87645 18.0781Z" />
+                            <path d="M7.33153 18.0781H4.91599C4.65993 18.0781 4.45508 18.2829 4.45508 18.539C4.45508 18.7951 4.65993 18.9999 4.91599 18.9999H7.33153C7.58759 18.9999 7.79244 18.7951 7.79244 18.539C7.79244 18.2829 7.58759 18.0781 7.33153 18.0781Z" />
+                            <path d="M11.7876 18.0781H9.37205C9.11598 18.0781 8.91113 18.2829 8.91113 18.539C8.91113 18.7951 9.11598 18.9999 9.37205 18.9999H11.7876C12.0436 18.9999 12.2485 18.7951 12.2485 18.539C12.2485 18.2829 12.0436 18.0781 11.7876 18.0781Z" />
+                            <path d="M16.2514 18.0781H13.8359C13.5799 18.0781 13.375 18.2829 13.375 18.539C13.375 18.7951 13.5799 18.9999 13.8359 18.9999H16.2514C16.5075 18.9999 16.7124 18.7951 16.7124 18.539C16.7124 18.2829 16.5075 18.0781 16.2514 18.0781Z" />
+                            <path d="M20.7075 18.0781H18.292C18.0359 18.0781 17.8311 18.2829 17.8311 18.539C17.8311 18.7951 18.0359 18.9999 18.292 18.9999H20.7075C20.9636 18.9999 21.1684 18.7951 21.1684 18.539C21.1684 18.2829 20.9636 18.0781 20.7075 18.0781Z" />
+                        </svg>
+                        Profile
+                    </a>
+                    <a {% if sidebar =='transaction' %} class="active" {% endif %} href="/transaction">
+                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.11113 0C0.947614 0 0 0.947614 0 2.11113V9.85192C0 11.0154 0.947614 11.9631 2.11113 11.9631H3.25325L5.3548 14.602C5.38777 14.6432 5.42959 14.6765 5.47717 14.6994C5.52475 14.7223 5.57687 14.7342 5.62967 14.7342C5.68247 14.7342 5.73459 14.7223 5.78217 14.6994C5.82975 14.6765 5.87157 14.6432 5.90454 14.602L8.00469 11.9631H10.6202C10.5815 12.1922 10.5555 12.4268 10.5555 12.6668C10.5555 14.9945 12.45 16.8891 14.7777 16.889C17.1055 16.889 19 14.9945 19 12.6668C19 11.1083 18.1487 9.74647 16.8889 9.0149V2.11113C16.8889 0.947614 15.9413 0 14.7777 0H2.11099H2.11113ZM2.11113 0.703709H14.7779C15.5636 0.703709 16.1853 1.32537 16.1853 2.11113V8.69053C15.7441 8.53367 15.2721 8.44451 14.7779 8.44451C12.9439 8.44451 11.3831 9.62188 10.8017 11.2593H7.83566C7.78287 11.2593 7.73075 11.2711 7.68315 11.294C7.63556 11.3168 7.59371 11.3501 7.56072 11.3913L5.62967 13.8185L3.69862 11.3913C3.66563 11.3501 3.62378 11.3168 3.57619 11.294C3.5286 11.2711 3.47648 11.2593 3.42368 11.2593H2.11113C1.32537 11.2593 0.703709 10.6378 0.703709 9.85192V2.11113C0.703709 1.32537 1.32537 0.703709 2.11113 0.703709ZM3.13643 3.51854C3.04312 3.52331 2.95552 3.56499 2.89291 3.63434C2.8303 3.70369 2.7978 3.79504 2.80255 3.88835C2.80731 3.98166 2.84894 4.06926 2.91829 4.13188C2.98763 4.1945 3.07901 4.227 3.17232 4.22225H7.78633C7.83295 4.22291 7.87924 4.2143 7.92251 4.19691C7.96578 4.17953 8.00516 4.15371 8.03836 4.12098C8.07157 4.08824 8.09793 4.04923 8.11593 4.00621C8.13393 3.96319 8.14319 3.91703 8.14319 3.8704C8.14319 3.82377 8.13393 3.7776 8.11593 3.73459C8.09793 3.69157 8.07157 3.65256 8.03836 3.61982C8.00516 3.58708 7.96578 3.56127 7.92251 3.54389C7.87924 3.5265 7.83295 3.51789 7.78633 3.51854H3.17232C3.16036 3.51793 3.14839 3.51793 3.13643 3.51854ZM3.13643 4.92596C3.04312 4.93073 2.95552 4.97241 2.89291 5.04176C2.8303 5.11111 2.7978 5.20246 2.80255 5.29577C2.80731 5.38908 2.84894 5.47668 2.91829 5.5393C2.98763 5.60192 3.07901 5.63442 3.17232 5.62967H12.4003C12.4469 5.63033 12.4932 5.62172 12.5364 5.60433C12.5797 5.58694 12.6191 5.56113 12.6523 5.52839C12.6855 5.49565 12.7119 5.45664 12.7299 5.41363C12.7479 5.37061 12.7571 5.32445 12.7571 5.27782C12.7571 5.23119 12.7479 5.18502 12.7299 5.14201C12.7119 5.09899 12.6855 5.05998 12.6523 5.02724C12.6191 4.9945 12.5797 4.96869 12.5364 4.9513C12.4932 4.93392 12.4469 4.9253 12.4003 4.92596H3.17232C3.16036 4.92535 3.14839 4.92535 3.13643 4.92596ZM3.13643 6.33338C3.04312 6.33815 2.95552 6.37983 2.89291 6.44918C2.8303 6.51853 2.7978 6.60988 2.80255 6.70319C2.80731 6.7965 2.84894 6.8841 2.91829 6.94672C2.98763 7.00934 3.07901 7.04184 3.17232 7.03709H10.4224C10.469 7.03775 10.5153 7.02913 10.5586 7.01175C10.6019 6.99436 10.6413 6.96855 10.6745 6.93581C10.7077 6.90307 10.734 6.86406 10.752 6.82105C10.77 6.77803 10.7793 6.73186 10.7793 6.68523C10.7793 6.6386 10.77 6.59244 10.752 6.54942C10.734 6.50641 10.7077 6.4674 10.6745 6.43466C10.6413 6.40192 10.6019 6.37611 10.5586 6.35872C10.5153 6.34133 10.469 6.33272 10.4224 6.33338H3.17232C3.16036 6.33277 3.14839 6.33277 3.13643 6.33338ZM3.13643 7.7408C3.04312 7.74557 2.95552 7.78724 2.89291 7.85659C2.8303 7.92594 2.7978 8.01729 2.80255 8.11061C2.80731 8.20392 2.84894 8.29152 2.91829 8.35414C2.98763 8.41676 3.07901 8.44926 3.17232 8.44451H9.35729C9.40391 8.44517 9.4502 8.43655 9.49347 8.41917C9.53674 8.40178 9.57612 8.37597 9.60932 8.34323C9.64253 8.31049 9.66889 8.27148 9.68689 8.22846C9.70489 8.18545 9.71415 8.13928 9.71415 8.09265C9.71415 8.04602 9.70489 7.99986 9.68689 7.95684C9.66889 7.91382 9.64253 7.87481 9.60932 7.84208C9.57612 7.80934 9.53674 7.78353 9.49347 7.76614C9.4502 7.74875 9.40391 7.74014 9.35729 7.7408H3.17232C3.16036 7.74019 3.14839 7.74019 3.13643 7.7408ZM10.8772 7.7408C10.7839 7.74557 10.6963 7.78724 10.6337 7.85659C10.5711 7.92594 10.5386 8.01729 10.5434 8.11061C10.5481 8.20392 10.5897 8.29152 10.6591 8.35414C10.7284 8.41676 10.8198 8.44926 10.9131 8.44451H12.069C12.1157 8.44517 12.1619 8.43655 12.2052 8.41917C12.2485 8.40178 12.2879 8.37597 12.3211 8.34323C12.3543 8.31049 12.3806 8.27148 12.3986 8.22846C12.4166 8.18545 12.4259 8.13928 12.4259 8.09265C12.4259 8.04602 12.4166 7.99986 12.3986 7.95684C12.3806 7.91382 12.3543 7.87481 12.3211 7.84208C12.2879 7.80934 12.2485 7.78353 12.2052 7.76614C12.1619 7.74875 12.1157 7.74014 12.069 7.7408H10.9131C10.9012 7.74019 10.8892 7.74019 10.8772 7.7408ZM14.7779 9.14822C16.7253 9.14822 18.2964 10.7194 18.2964 12.6668C18.2964 14.6142 16.7253 16.1853 14.7779 16.1853C12.8304 16.1854 11.2593 14.6142 11.2593 12.6668C11.2593 10.7193 12.8304 9.14822 14.7779 9.14822ZM14.7779 9.85055C14.3111 9.85055 13.9115 10.016 13.5807 10.3467C13.2524 10.6751 13.0887 11.073 13.0887 11.5397C13.0887 11.6171 13.1161 11.6841 13.1698 11.7404C13.2261 11.7946 13.2931 11.8215 13.3705 11.8215C13.4479 11.8215 13.513 11.794 13.567 11.7404C13.6233 11.6841 13.6522 11.6171 13.6522 11.5397C13.6522 11.2278 13.7612 10.9621 13.9793 10.7439C14.1999 10.5234 14.4659 10.4141 14.7779 10.4141C15.0898 10.4141 15.3542 10.5234 15.5723 10.7439C15.7928 10.9621 15.9035 11.2278 15.9035 11.5397C15.9035 11.8518 15.7928 12.1178 15.5723 12.3383L14.9923 12.877C14.6616 13.2078 14.4961 13.606 14.4961 14.0728C14.4961 14.1502 14.5236 14.2172 14.5772 14.2735C14.6335 14.3277 14.7005 14.3546 14.7779 14.3546C14.8553 14.3546 14.9205 14.3271 14.9744 14.2735C15.0307 14.2172 15.0597 14.1502 15.0597 14.0728C15.0597 13.7608 15.169 13.4947 15.3895 13.2743L15.9709 12.7356C16.3016 12.4048 16.4671 12.0066 16.4671 11.5397C16.4671 11.073 16.3016 10.6751 15.9709 10.3467C15.6425 10.016 15.2447 9.85055 14.7779 9.85055ZM14.7779 14.6363C14.6606 14.6363 14.5604 14.6765 14.4782 14.7587C14.3962 14.8408 14.3559 14.941 14.3559 15.0583C14.3559 15.1756 14.3961 15.2758 14.4782 15.3579C14.5604 15.44 14.6606 15.4802 14.7779 15.4802C14.8952 15.4802 14.9941 15.4401 15.0761 15.3579C15.1582 15.2758 15.1998 15.1756 15.1998 15.0583C15.1998 14.941 15.1583 14.8408 15.0761 14.7587C14.9941 14.6766 14.8952 14.6363 14.7779 14.6363Z" />
+                        </svg>
+                        View Transaction</a>
+                </div>
+            </div>
+
+            <div id="main">
+               
+                {% block content %}{% endblock %}
+
+            </div>
+        </div>
+        <!--End Sign-In Section-->
+    </main>
+    <!--End: Main -->
+
+    <!--Start: Footer -->
+    <footer class="dashboard-footer"style="margin-top:50px;">
+        <section class="footer-section">
+            <div class="container">
+                <div class="footer-top">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <div class="footer-logo">
+                                <a href="/">Inflated</a>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="privacy">
+                                <ul>
+                                    <li>
+                                        <a href="#">Privacy Policy</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Terms</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>
+                                    <a href="#">Features</a>
+                                </li>
+                                <li>
+                                    <a href="#">Pricing Plans</a>
+                                </li>
+                                <li>
+                                    <a href="#">Our Works</a>
+                                </li>
+                                <li>
+                                    <a href="#">Contacts</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="copy-right">
+                                &copy; 2021 Inflated. All rights reserved.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+    <!--End: Footer -->
+
+    <!-- scroll to top button -->
+    <button type="button" id="scrollTop"><i class="fa fa-angle-up"></i></button>
+
+
+</body>
+
+<!--Bootstrap core js -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/popper.min.js') }}"></script>
+<!-- Custom js -->
+<script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<script src="{{ url_for('static', filename='assets/js/form.js') }}"></script>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<!-- Google Chart js -->
+<script type="text/javascript" src="{{ url_for('static', filename='assets/js/loader.js') }}"></script>
+<script type="text/javascript">
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "255px";
+        document.getElementById("main").style.marginLeft = "255px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+
+<script>
+    $(function () {
+    
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
+        title:{
+            text: ""
+        },
+        axisY: {
+            title: "Consumer Price Index"
+        },
+        
+        data: [{        
+            type: "column",
+            color:"#45db2a",  
+            showInLegend: true, 
+            legendMarkerColor: "grey",
+            legendText: "CPI value distribution",
+            xValueFormatString : "###",
+            yValueFormatString: "##.##",
+            dataPoints: [
+                {% for d in data %}      
+                { y: {{d.CPI}}, label: '{{d.Month}}' },
+                {% endfor %}
+               
+            ]
+        }]
+    });
+    chart.render();
+
+    var chart = new CanvasJS.Chart("columnchart", {
+        animationEnabled: true,
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
+        title:{
+            text: ""
+        },
+        axisY: {
+            title: "Consumer Price Index"
+        },
+        
+        data: [{        
+            type: "column",
+            color:"#45db2a",  
+            showInLegend: true, 
+            legendMarkerColor: "grey",
+            legendText: "CPI value distribution",
+            xValueFormatString : "###",
+            yValueFormatString: "##.##",
+            dataPoints: [
+                {% for d in jan %}      
+                { y: {{d.pi_monthly}}, label: '{{d.category}}' },
+                {% endfor %}
+               
+            ]
+        }]
+    });
+    chart.render();
+    
+    var doughnutChart = new CanvasJS.Chart("pi-doughchart", {
+        animationEnabled: true,
+        theme: "theme2",
+        legend: {
+            fontSize: 14
+        },
+        toolTip: {
+            borderThickness: 0,
+            content: "<span style='\"'color: {color};'\"'>{name}</span>: {y}% (#percent%)",
+            cornerRadius: 0
+        },
+        data: [
+            {
+                indexLabelFontColor: "#676464",
+                indexLabelFontSize: 14,
+                legendMarkerType: "square",
+                legendText: "{indexLabel}",
+                showInLegend: true,
+                startAngle: 90,
+                type: "doughnut",
+                xValueFormatString : "###",
+                yValueFormatString: "##.##",
+                dataPoints: [
+                    {% for p in pi %}
+                    { y: {{ p.PI }}, label:'{{p.category}}'},
+                    {% endfor %}
+                    ]
+                }
+            ]
+        });
+    doughnutChart.render();
+    
+    var jsondata = {
+        "dsp1" : [
+        {% for i in jan %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp2" : [
+        {% for i in feb %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp3" : [
+        {% for i in mar %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp4" : [
+        {% for i in apr %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp5" : [
+        {% for i in may %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp6" : [
+        {% for i in jun %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp7" : [
+        {% for i in jul %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp8" : [
+        {% for i in aug %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp9" : [
+        {% for i in sep %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp10" : [
+        {% for i in oct %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp11" : [
+        {% for i in nov %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ],
+        "dsp12" : [
+        {% for i in dec %}
+        {y:{{i.pi_monthly}},label:'{{i.category}}'},
+       {% endfor %}
+        ]}
+    var datapoints = [];
+    var chart = new CanvasJS.Chart("monthly-pi",
+    {animationEnabled: true,
+      title:{
+        text: "Monthly Personnel inflation"
+      },
+      data: [{
+        color:"#45db2a",
+        xValueFormatString : "###",
+        yValueFormatString: "##.##",
+        dataPoints: datapoints
+      }]
+    });
+    $( ".dropdown" ).change(function() {
+        chart.options.data[0].dataPoints = [];
+      var e = document.getElementById("dd");
+        var selected = e.options[e.selectedIndex].value;
+      dsp = jsondata[selected];
+      for(var i in dsp) {
+          
+        chart.options.data[0].dataPoints.push({y: dsp[i].y,label:dsp[i].label});
+      }
+    chart.render();
+    });
+});
+    </script>
+
+<script type="text/javascript"  src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript"  src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script type="text/javascript"  src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+
+
+</html>

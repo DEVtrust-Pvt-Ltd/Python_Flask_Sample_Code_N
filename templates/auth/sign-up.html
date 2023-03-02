@@ -1,0 +1,103 @@
+{% extends 'base.html' %} 
+
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+
+<!--Start Sign-Up Section-->
+
+<section class="sign-in sign-up separator">
+	<div class="container max-width-1225">
+		<div class="block">
+			<div class="row align-items-center">
+				<div class="col-md-6">
+					<div class="sign-in-image">
+						<img src="{{ url_for('static', filename='assets/images/sign-up.png') }}" alt="Sign-Up" />
+					</div>
+				</div>
+				
+				<div class="col-md-6">	
+					<h2>Sign <span>Up</span></h2>
+					<form id='signUp' method="post">
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Name</label>
+								<div class="input-group">
+									<input type="text" class="form-control" onkeypress="return(event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)"  autocomplete="off" id="name" name="name"  onkeyup="myFunction()" placeholder="Enter Name" />
+									<div class="input-group-append">
+										<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/user.png') }}" alt="User"></span>
+									</div>
+								</div>
+							</div>
+								<div id="nameStatus" class="fieldError"></div>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Email</label>
+								<div class="input-group">
+									<input type="email" class="form-control" id="email" name="email" autocomplete="off" onkeyup="myFunction()" placeholder="Email Address" />
+									<div class="input-group-append">
+										<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/email.png') }}" alt=""></span>
+									</div>
+								</div>
+							</div>
+							<div id="emailStatus" class="fieldError"></div><span id="validemailStatus" class="fieldError">
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Phone Number</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="number" name="number" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"  maxlength="14" minlength="10" autocomplete="off" onkeyup="myFunction()" placeholder="Enter Phone Number" />
+									<div class="input-group-append">
+										<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/phone.png') }}" alt=""></span>
+									</div>
+								</div>
+							</div>
+							<div id="numberStatus" class="fieldError"></div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label for="inputAddress">Password</label>
+								<div class="input-group">
+									<input type="password" class="form-control" autocomplete="off" id="password" onkeyup="myFunction()" minlength="8" maxlength="50"  name="password" placeholder="Password" />
+									<div class="input-group-append">
+										<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/password.png') }}" alt="Password"></span>
+									</div>
+								</div>
+							</div>
+							<div id="passwordStatus" class="fieldError"></div><span id="checkpasswordStatus" class="fieldError"></span>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label for="inputAddress">Confirm Password</label>
+								<div class="input-group">
+									<input type="password" class="form-control" autocomplete="off" oninput="passverify()" onkeyup="passFunction()" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" />
+									<div class="input-group-append">
+										<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/password.png') }}" alt="Password"></span>
+									</div>				
+								</div> 
+								<span id="confirmpasswordStatus" class="fieldError"></span>
+								<div id="checkconfirmpasswordStatus" class="fieldError"></div>
+								<div id="formStatus"></div>
+								
+							</div>
+						</div>	
+						<div>	
+						<div id="loaderStatus"></div>			
+						<button type="button" onclick="signup();" class="btn btn-default submit signUp">Sign Up</button>	
+						</div>
+						<div class="account-yet">
+							Already have an account?  <a href="sign-in">Sign In</a>
+						</div>
+					</form>
+				</div> 
+			</div>
+		</div>
+	</div>
+</section>
+
+</main>
+<!--End: Main -->
+{% endblock %}

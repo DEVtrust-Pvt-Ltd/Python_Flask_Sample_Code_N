@@ -1,0 +1,150 @@
+{% extends 'base.html' %} 
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+{% with message = get_flashed_messages(category_filter=["message"]) %}
+{% if message %}
+<div id = "alert" class="form-control {{className}}" >{{message[0]}}</div>
+{% endif %}
+{% endwith %}
+<!--Start Hero Section-->
+<section class="hero-section separator">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 hero-right d-md-none">
+				<div class="hero-image">
+					<img src="{{ url_for('static', filename='assets/images/hero-img.png') }}" alt="" />
+				</div>
+			</div>
+			<div class="col-md-6 hero-left">
+				<div class="wrap">
+					<h1>Discover how inflation affects your pockets.</h1>
+					<p>calculate your personal inflation rate today in a few easy steps.</p>
+					<a class="btn btn-default" href="#">Get Started</a>
+				</div>
+			</div>
+			<div class="col-md-6 hero-right d-none d-md-block">
+				<div class="hero-image">
+					<img src="{{ url_for('static', filename='assets/images/hero-img.png') }}" alt="" />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--End Heor Section-->
+
+<!--Start Selling Section-->
+<section class="selling-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5 d-md-none">
+				<div class="selling-image">
+					<img src="{{ url_for('static', filename='assets/images/iphone2.png') }}" alt="" />
+				</div>
+			</div>
+			<div class="col-md-7">
+				<div class="wrap">
+					<h2>Inflation affects us all differently and its time we understand how</h2>
+					<p>Inflated will automatically calculate your own spending basket to see how inflation is affecting your pockets so you can negotiate better salaries, budget with clarity, and ignore the headlines.</p>
+				</div>
+				
+				<div class='media-list'>
+					<ol>
+						<li><span>1.</span> Input your spending accounts securely with Plaid</li>
+						<li><span>2.</span> Answer a few questions so we can give you a more accurate inflation number</li>
+						<li><span>3.</span>  View your personal inflation rate in our dashboard</li>
+					</ol>
+				</div>
+				
+			</div>
+			<div class="col-md-5 d-none d-md-block">
+				<div class="selling-image">
+					<img src="{{ url_for('static', filename='assets/images/iphone2.png') }}" alt="iPhone" />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--End Selling Section-->
+
+<!--Start Get Started Section-->
+<section class="get-started-section">
+	<div class="get-started-block">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-7">
+					<p>Inflated is here to help you along your personal finance journey.</p>
+				</div>
+				<div class="col-md-5">
+					<div class="btn-wrap">
+						<a class="btn btn-default" href="#">Get Started</a>
+						<a class="btn btn-primary" href="#">Learn More</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--End Get Started Section-->
+
+<!--Start Get In Touch Section-->
+<section class="get-in-touch-section separator">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 d-md-none">
+				<div class="get-in-touch-image">
+					<img src="{{ url_for('static', filename='assets/images/get-in-touch.png') }}" alt="" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				
+				<h2>Let us know how we’re doing</h2>
+				<form id="contactSave"  method="post">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>First Name</label>
+							<input type="text" class="form-control"  name="first_name" id="first_name" onkeypress="return /[a-z]/i.test(event.key)" onkeyup="myFunction()"  placeholder="Enter your first name" />
+							<div id="first_nameStatus" class="fieldError"></div>
+						</div>
+						<!-- <div id="first_nameStatus" class="fieldError"></div> -->
+						<div class="form-group col-md-6">
+							<label>Last Name</label>
+							<input type="text" class="form-control" name="last_name" id="last_name" onkeypress="return /[a-z]/i.test(event.key)" onkeyup="myFunction()" placeholder="Enter your last name" />
+							<div id="last_nameStatus" class="fieldError"></div>
+						</div>
+						<!-- <div id="last_nameStatus" class="fieldError"></div> -->
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label>Your Email</label>
+							<input type="email" class="form-control" name="email" id="email" onkeyup="myFunction()" placeholder="Enter your email" />
+							<div id="emailcheck" class="fieldError"></div>
+							<span id="emailStatus" class="fieldError"></span>
+						</div>					
+						
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="inputAddress">Message</label>							
+							<textarea class="form-control " rows="4" name="message"  id="message" onkeyup="myFunction()" placeholder="Enter your message"></textarea>
+							<div id="messageStatus" class="fieldError"></div>
+						</div>
+						
+						<div id="formStatus"></div>
+						<!-- <div id="wait" class="wait"><img src='https://www.w3schools.com/jquery/demo_wait.gif' /><br>Loading..</div>						 -->
+					</div>
+					<button type="button" onclick="contact();" class="btn btn-default contactSave">Save</button>
+				</form>
+			</div>
+			<div class="col-md-6 d-none d-md-block">
+				<div class="get-in-touch-image">
+					<img src="{{ url_for('static', filename='assets/images/get-in-touch.png') }}" alt="" />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--End Get In Touch Section-->
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %} 
+
+{% block title %} Sign In {% endblock %}
+
+{% block content %}
+
+{% if messages %}
+
+{% for message in messages %}
+  <li>{{ message }}</li>
+{% endfor %}
+
+{% endif %}
+
+
+<!--Start Sign-In Section-->
+<section class="sign-in separator">
+	<div class="container max-width-1225">
+		<div class="block">
+			<div class="row align-items-center">
+				<div class="col-md-6">
+					<div class="sign-in-image">
+						<img src="{{ url_for('static', filename='assets/images/sign-in.png') }}" alt="Sign-In" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<h2>Sign <span>In</span></h2>
+					<form id="signIn"  method="post">
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Email</label>
+								<div class="input-group">
+									<input type="email" name='email' class="form-control" id="email" placeholder="Email Address" required/>
+									<div class="input-group-append">
+										<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/email.png') }}" alt=""></span>
+									</div>
+								</div>
+								<div id="emailStatus"></div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label for="inputAddress">Password</label>
+								<div class="input-group">
+									<input type="password" name='password' class="form-control" id="password" placeholder="Password" required/>
+									<div class="input-group-append">
+										<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/password.png') }}" alt="Password"></span>
+									</div>
+								</div>
+								<div id="passwordStatus"></div><span id="formStatus"></span><span id="validemailStatus"></span>
+									</div>
+							
+						</div>
+						<div class="forgot-pass">
+							<a href="forget_password">I forgot my password</a>
+						</div>
+						<div style='color:red; margin-top: 10px;'>{{message}}</div>
+						<div id="loaderStatus"></div>
+						<button type="button" onclick="signin();" id="btn-submit-sign" class="btn btn-default submit signIn">Sign In</button> 
+						<div class="account-yet">
+							Don’t have an account yet?  <a href="sign-up">Sign Up</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--End Sign-In Section-->
+
+{% endblock %}

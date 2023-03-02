@@ -1,0 +1,67 @@
+{% extends 'admin/base.html' %} 
+{% block title %} Admin Dashboard {% endblock %}
+
+  
+  {% block header %}   
+  <!-- Content Wrapper. Contains page content -->
+ 
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Users Data</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+            <li class="breadcrumb-item active">Users Data</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+    {% endblock %}
+
+    {% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Update Now</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form class="modal-content" action="/crud/update" method="POST">
+                <div class="card-body">
+                  <input type="hidden" class="form-control" value="{{data[0][0]}}" name="id">
+
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Name</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                      value="{{data[0][1]}}" name="name">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
+                      value="{{data[0][2]}}" name="email">
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+            </div>
+            </div>
+            </section>
+            {% endblock %}

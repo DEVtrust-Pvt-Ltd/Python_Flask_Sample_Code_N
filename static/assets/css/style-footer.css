@@ -1,0 +1,75 @@
+footer{
+	background-image: url(../images/dot-ornament-4.png);
+	background-repeat: no-repeat;
+	background-position: left 50px;
+	padding-top: 170px;
+}
+footer .footer-section{
+	background: #2F3035;
+	padding: 49px 0 45px;
+	min-height: 240px;
+	color: #FFFFFF;
+}
+
+footer .footer-logo{
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 31px;
+	letter-spacing: -0.292683px;
+}
+footer li{
+	display: inline;
+}
+footer li:not(:last-child){
+	padding-right: 27px;
+}
+footer hr{
+	border-top: 2px solid rgba(255,255,255,.3);
+	margin: 39px 0 47px;
+}
+footer .privacy,
+footer .copy-right{
+	text-align: right;
+}
+.footer-top{
+	border-bottom: 2px solid rgba(255,255,255,.3);
+	padding-bottom: 39px;
+}
+.footer-bottom{
+	padding-top: 47px;
+}
+
+@media(max-width:992px){
+	footer{
+		padding-top: 120px;
+	}
+	footer li:not(:last-child) {
+		padding-right: 15px;
+	}
+}
+@media(max-width:767px){
+	footer{
+		background-position: -80px 50px;
+
+	}
+	footer .footer-section{
+		padding: 20px 0;
+		min-height: auto;
+	}
+	.footer-top{
+		padding-bottom: 20px;
+	}
+	.footer-bottom {
+		padding-top: 20px;
+		text-align: center;
+	}
+	footer .copy-right{
+		text-align: center;
+		margin-top: 10px;
+	}
+}
+@media(max-width:575px){
+	
+}
+
+

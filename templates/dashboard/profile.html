@@ -1,0 +1,52 @@
+{% extends 'dashboard/base.html' %} 
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+	<div class="profile link-bank-account sign-in">
+		<div class="container">
+			<h2>Profile</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse interdum egestas.</p>
+			<form action="/profile" method="post">
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<input type="hidden" class="form-control" value="{{ data[0] }}"  name="update_id" />
+						<label>Full Name</label>
+						<div class="input-group">
+							<input type="text" class="form-control" value="{{ data[1] }}" name="name" onkeyup="myFunction()"  onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)"  autocomplete="off" id="name" name="name"  onkeyup="myFunction()"  placeholder="enter name" required />
+							
+							<div class="input-group-append">
+								<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/user.png') }}" alt="User"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label>Email</label>
+						<div class="input-group">
+							<input type="email" hidden value="{{ data[2] }}" name="email" />
+							<input type="email" disabled class="form-control" value="{{ data[2] }}" name="email" onkeyup="myFunction()" required/>
+							<div class="input-group-append">
+								<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/email.png') }}" alt=""></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="inputAddress">Phone Number</label>
+						<div class="input-group">
+							<input type="text" class="form-control" value="{{ data[3] }}" name="mobile" onkeyup="myFunction()"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  maxlength="10" required/>
+							<div class="input-group-append">
+								<span class="input-group-text"><img src="{{ url_for('static', filename='assets/images/icons/phone.png') }}" alt="Password"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style='color:green; margin-top: 10px; text-align: left;'>{{message}}</div>
+				<button type="submit" class="btn btn-default">Update</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}

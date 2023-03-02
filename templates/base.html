@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{% block title %}{% endblock %}-Inflated</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<!-- Favicon -->
+	 <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/images/apple-icon.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='assets/images/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='assets/images/favicon-16x16.png') }}" />
+	<link rel="manifest" href="{{ url_for('static', filename='assets/favicon_io/site.webmanifest') }}" />
+	
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	
+	<!-- Bootstrap core css -->
+	<link href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+	
+	<!-- Common css -->
+	<link href="{{ url_for('static', filename='assets/css/common.css') }}" rel="stylesheet" />
+	
+	<!-- Custom css -->
+	<link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet" />
+	<link href="{{ url_for('static', filename='assets/css/style-header.css') }}" rel="stylesheet" />	
+	<link href="{{ url_for('static', filename='assets/css/style-footer.css') }}" rel="stylesheet" />
+	
+	<!-- Responsive css -->
+	<link href="{{ url_for('static', filename='assets/css/responsive.css') }}" rel="stylesheet" />
+	
+</head>
+
+<body>
+
+<!-- Start: Header -->
+<header>
+	<!-- Start: Main Navigation -->
+	<nav class="navbar navbar-expand-md fixed-top" id="header">
+		<div class="container">
+			<a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='admin/dist/img/logo.svg')}}"  class="brand-image img-circle elevation-3"
+				style="opacity: .8"></a>
+			
+			<button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="close">x</span>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse flex-md-column" id="navbarCollapse">
+				<ul class="navbar-nav ml-auto">
+				  <li class="nav-item active">
+					 <a class="nav-link" href="/"><span>Home</span></a>
+				  </li>
+				  <li class="nav-item">
+					 <a class="nav-link" href="#"><span>Features</span></a>
+				  </li>
+				  <li class="nav-item">
+					 <a class="nav-link" href="#"><span>Blog</span></a>
+				  </li>
+				  {% if 'user' in session %}
+				  <li class="nav-item">
+					 <a class="btn btn-primary" style="width: 121px; margin-right: 5px;" href="/dashboard">Dashboard</a>
+				  </li>
+    <li class="nav-item">
+					 <a class="btn btn-default" href="/logout">Logout</a>
+				  </li>
+    {% else %}
+				  <li class="nav-item">
+					 <a class="btn btn-default" href="sign-in">Sign In</a>
+				  </li>
+				  <li class="nav-item">
+					 <a class="btn btn-primary" href="sign-up">Sign Up</a>
+				  </li>
+				  {% endif %}
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- End: Main Navigation -->
+</header>
+<!--End: Header -->
+
+<!--Start: Main -->
+<main>
+
+    {% block content %}{% endblock %}
+
+</main>
+<!--End: Main -->
+
+<!--Start: Footer -->
+<footer>
+	<section class="footer-section">
+		<div class="container">
+			<div class="footer-top">
+				<div class="row align-items-center">
+					<div class="col-6">
+						<div class="footer-logo">
+							<a href="/">Inflated</a>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="privacy">
+							<ul>
+								<li>
+									<a href="#">Privacy Policy</a>
+								</li>
+								<li>
+									<a href="#">Terms</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="footer-bottom">
+				<div class="row align-items-center">
+					<div class="col-md-6">
+						<ul>
+							<li>
+								<a href="#">Features</a>
+							</li>
+							<li>
+								<a href="#">Pricing Plans</a>
+							</li>
+							<li>
+								<a href="#">Our Works</a>
+							</li>
+							<li>
+								<a href="#">Contacts</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-6">
+						<div class="copy-right">
+							&copy; 2021 Inflated. All rights reserved.
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+</footer>
+<!--End: Footer -->
+
+<!-- scroll to top button -->
+<button type="button" id="scrollTop"><i class="fa fa-angle-up"></i></button>
+
+</body>
+
+	<!--Bootstrap core js -->
+	<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/popper.min.js') }}"></script>
+	
+	<!-- Custom js -->
+	<script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/form.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Twitter universal website tag code -->
+	
+</html>
